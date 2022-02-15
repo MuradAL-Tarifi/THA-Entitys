@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace THA_Entitys.Models
 {
-    public partial class AlumniadbContext : IdentityDbContext
+    public partial class AlumniadbContext : IdentityDbContext<ApplicationUser,IdentityRole,string>
     {
         public AlumniadbContext()
         {
         }
 
-        public AlumniadbContext(DbContextOptions<AlumniadbContext> options)
+        public AlumniadbContext(DbContextOptions options)
             : base(options)
         {
         }
