@@ -25,10 +25,11 @@ namespace THA_Entitys.Models
         public string ImageUrl { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
         public int? TypeOfTrainingId { get; set; }
-        public int? UserId { get; set; }
+        public string? ApplicationUserId { get; set; }
+
+        public virtual ApplicationUser? ApplicationUser { get; set; }
 
         public virtual TypeOfTraining? TypeOfTraining { get; set; }
-        public virtual ApplicationUser? User { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
     }
 }

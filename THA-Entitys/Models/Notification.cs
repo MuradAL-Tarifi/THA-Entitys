@@ -7,8 +7,8 @@ namespace THA_Entitys.Models
     {
         public string Subject { get; set; } = null!;
         public bool IsRead { get; set; }
-        public int? UserId { get; set; }
+        public string? ApplicationUserId { get; set; }
 
-        public virtual ApplicationUser? User { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
     }
 }

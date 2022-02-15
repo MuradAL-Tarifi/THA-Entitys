@@ -16,9 +16,9 @@ namespace THA_Entitys.Models
         public string CompanyLicense { get; set; } = null!;
         public string Role { get; set; } = null!;
         public string Payment { get; set; } = null!;
-        public int? UserId { get; set; }
+        public string? ApplicationUserId { get; set; }
 
-        public virtual ApplicationUser? User { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
         public virtual ICollection<CompaniesRequestForTraining> CompaniesRequestForTrainings { get; set; }
     }
 }
