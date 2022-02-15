@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace THA_Entitys.Models
 {
-    public partial class Notification : BaseDataModel
+    public class Notification : BaseDataModel
     {
         public string Subject { get; set; } = null!;
         public bool IsRead { get; set; }

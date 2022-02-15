@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace THA_Entitys.Models
 {
-    public partial class ApplicationUser: BaseDataModel
+    public class ApplicationUser: BaseDataModel
     {
         public ApplicationUser()
         {

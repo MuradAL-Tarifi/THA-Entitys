@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace THA_Entitys.Models
 {
-    public partial class TypeOfTraining : BaseDataModel
+    public class TypeOfTraining : BaseDataModel
     {
         public TypeOfTraining()
         {

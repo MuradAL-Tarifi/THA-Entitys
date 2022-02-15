@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace THA_Entitys.Models
 {
-    public partial class CompaniesRequestForTraining: BaseDataModel
+    public class CompaniesRequestForTraining: BaseDataModel
     {
         public string TrainingPathName { get; set; } = null!;
         public int Capacity { get; set; }

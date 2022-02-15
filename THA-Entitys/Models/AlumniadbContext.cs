@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace THA_Entitys.Models
 {
-    public partial class AlumniadbContext : DbContext
+    public  class AlumniadbContext : DbContext
     {
         public AlumniadbContext()
         {
