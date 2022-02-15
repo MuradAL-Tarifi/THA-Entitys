@@ -7,7 +7,7 @@ namespace THA_Entitys.Models
     {
         public Company()
         {
-            CompaniesRequestForTrainings = new HashSet<CompaniesRequestForTraining>();
+            CompanyRequests = new HashSet<CompanyRequest>();
         }
 
         public string CompanyName { get; set; } = null!;
@@ -19,6 +19,6 @@ namespace THA_Entitys.Models
         public int? UserId { get; set; }
 
         public virtual ApplicationUser? User { get; set; }
-        public virtual ICollection<CompaniesRequestForTraining> CompaniesRequestForTrainings { get; set; }
+        public virtual ICollection<CompanyRequest> CompanyRequests { get; set; }
     }
 }

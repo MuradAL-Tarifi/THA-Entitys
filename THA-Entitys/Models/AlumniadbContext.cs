@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using static THA_Entitys.Models.ApplicationUser;
 
 namespace THA_Entitys.Models
 {
-    public  class AlumniadbContext : DbContext
+    public partial class AlumniadbContext : DbContext
     {
         public AlumniadbContext()
         {
-        }
 
+        }
         public AlumniadbContext(DbContextOptions<AlumniadbContext> options)
             : base(options)
         {
@@ -18,7 +19,7 @@ namespace THA_Entitys.Models
 
         public virtual DbSet<Address> Addresses { get; set; } = null!;
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
-        public virtual DbSet<CompaniesRequestForTraining> CompaniesRequestForTrainings { get; set; } = null!;
+        public virtual DbSet<CompanyRequest> CompanyRequests { get; set; } = null!;
         public virtual DbSet<Company> Companies { get; set; } = null!;
         public virtual DbSet<Contact> Contacts { get; set; } = null!;
         public virtual DbSet<Notification> Notifications { get; set; } = null!;
@@ -34,7 +35,7 @@ namespace THA_Entitys.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=TAH-LAP-JOR289;Database=Alumniadb;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=TAH-LAP-JOR289;Database=Alumniadb1;Trusted_Connection=True;");
             }
         }
 
@@ -53,8 +54,8 @@ namespace THA_Entitys.Models
                     .HasColumnName("createdOn");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Addresses)
-                    .HasForeignKey(d => d.UserId)
+                    .WithOne(p => p.address)
+                    .HasForeignKey<ApplicationUser>(d => d.AddressId)
                     .HasConstraintName("FK__Address__UserId__2E1BDC42");
             });
 
@@ -70,7 +71,10 @@ namespace THA_Entitys.Models
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
-                entity.Property(e => e.Status).HasMaxLength(50);
+                entity.Property(e => e.state)
+                         .HasConversion(
+                         v => v.ToString(),
+                         v => (ApplicationUser.Status)(Status)Enum.Parse(typeof(Status), v));
 
                 entity.Property(e => e.UserName).HasMaxLength(256);
 
@@ -88,7 +92,7 @@ namespace THA_Entitys.Models
                         });
             });
 
-            modelBuilder.Entity<CompaniesRequestForTraining>(entity =>
+            modelBuilder.Entity<CompanyRequest>(entity =>
             {
                 entity.ToTable("CompaniesRequestForTraining");
 
@@ -104,9 +108,10 @@ namespace THA_Entitys.Models
                     .HasMaxLength(256)
                     .HasColumnName("note");
 
-                entity.Property(e => e.Status)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.state)
+                             .HasConversion(
+                              v => v.ToString(),
+                              v => (CompanyRequest.Status)(Status)Enum.Parse(typeof(Status), v));
 
                 entity.Property(e => e.TrainingPathName)
                     .HasMaxLength(256)
@@ -121,7 +126,7 @@ namespace THA_Entitys.Models
                     .HasColumnName("trainingPeriodTo");
 
                 entity.HasOne(d => d.Company)
-                    .WithMany(p => p.CompaniesRequestForTrainings)
+                    .WithMany(p => p.CompanyRequests)
                     .HasForeignKey(d => d.CompanyId)
                     .HasConstraintName("FK__Companies__Compa__2B3F6F97");
             });
@@ -159,8 +164,8 @@ namespace THA_Entitys.Models
                     .HasColumnName("role");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Companies)
-                    .HasForeignKey(d => d.UserId)
+                    .WithOne(p => p.company)
+                    .HasForeignKey<ApplicationUser>(d => d.CompanyId)
                     .HasConstraintName("FK__Company__UserId__286302EC");
             });
 
@@ -286,8 +291,8 @@ namespace THA_Entitys.Models
                     .HasConstraintName("FK__Trainee__TypeOfT__3B75D760");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Trainees)
-                    .HasForeignKey(d => d.UserId)
+                    .WithOne(p => p.Trainees)
+                    .HasForeignKey<ApplicationUser>(d => d.TraineesId)
                     .HasConstraintName("FK__Trainee__UserId__3C69FB99");
             });
 
