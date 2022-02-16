@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using THA_Entitys.Models;
 
@@ -11,9 +12,10 @@ using THA_Entitys.Models;
 namespace THA_Entitys.Migrations
 {
     [DbContext(typeof(AlumniadbContext))]
-    partial class AlumniadbContextModelSnapshot : ModelSnapshot
+    [Migration("20220215201647_Ini4")]
+    partial class Ini4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,8 +34,8 @@ namespace THA_Entitys.Migrations
 
                     b.Property<string>("AddressDetails")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -79,8 +81,7 @@ namespace THA_Entitys.Migrations
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TraineesId")
                         .HasColumnType("int");
@@ -119,42 +120,49 @@ namespace THA_Entitys.Migrations
                     b.Property<string>("CompanyEmail")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("companyEmail");
 
                     b.Property<string>("CompanyLicense")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("companyLicense");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("companyName");
 
                     b.Property<string>("CompanyWebsite")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("companyWebsite");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime")
+                        .HasColumnName("createdOn");
 
                     b.Property<string>("Payment")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("payment");
 
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("role");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Company", (string)null);
                 });
 
             modelBuilder.Entity("THA_Entitys.Models.CompanyRequest", b =>
@@ -166,32 +174,39 @@ namespace THA_Entitys.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Capacity")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("capacity");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("createdByUserId");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime")
+                        .HasColumnName("createdOn");
 
                     b.Property<string>("Note")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("note");
 
                     b.Property<string>("TrainingPathName")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("trainingPathName");
 
                     b.Property<DateTime>("TrainingPeriodFrom")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date")
+                        .HasColumnName("trainingPeriodFrom");
 
                     b.Property<DateTime>("TrainingPeriodTo")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date")
+                        .HasColumnName("trainingPeriodTo");
 
                     b.Property<string>("state")
                         .IsRequired()
@@ -201,7 +216,7 @@ namespace THA_Entitys.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("CompanyRequests");
+                    b.ToTable("CompaniesRequestForTraining", (string)null);
                 });
 
             modelBuilder.Entity("THA_Entitys.Models.Contact", b =>
@@ -232,7 +247,7 @@ namespace THA_Entitys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contact", (string)null);
                 });
 
             modelBuilder.Entity("THA_Entitys.Models.Notification", b =>
@@ -244,15 +259,18 @@ namespace THA_Entitys.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime")
+                        .HasColumnName("createdOn");
 
                     b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasColumnName("isRead");
 
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("subject");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -261,7 +279,7 @@ namespace THA_Entitys.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notification", (string)null);
                 });
 
             modelBuilder.Entity("THA_Entitys.Models.Project", b =>
@@ -273,12 +291,14 @@ namespace THA_Entitys.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime")
+                        .HasColumnName("createdOn");
 
                     b.Property<string>("ProjectName")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("projectName");
 
                     b.Property<int?>("TraineeId")
                         .HasColumnType("int");
@@ -287,7 +307,7 @@ namespace THA_Entitys.Migrations
 
                     b.HasIndex("TraineeId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Project", (string)null);
                 });
 
             modelBuilder.Entity("THA_Entitys.Models.Role", b =>
@@ -304,7 +324,8 @@ namespace THA_Entitys.Migrations
                     b.Property<string>("RoleName")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("roleName");
 
                     b.HasKey("Id");
 
@@ -320,34 +341,42 @@ namespace THA_Entitys.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("BirthDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date")
+                        .HasColumnName("birthDate");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime")
+                        .HasColumnName("createdOn");
 
                     b.Property<string>("CvUrl")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("cvUrl");
 
                     b.Property<DateTime?>("DateOfGraduation")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date")
+                        .HasColumnName("dateOfGraduation");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("email");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("fullName");
 
                     b.Property<bool>("GenderIsMale")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasColumnName("genderIsMale");
 
                     b.Property<decimal?>("Gpa")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,3)")
+                        .HasColumnName("GPA");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -357,25 +386,31 @@ namespace THA_Entitys.Migrations
                     b.Property<string>("JobTitle")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("jobTitle");
 
                     b.Property<string>("LinkedinUrl")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("linkedinUrl");
 
                     b.Property<string>("Major")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("major");
 
                     b.Property<string>("Nationality")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("nationality");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("phoneNumber");
 
                     b.Property<int?>("TypeOfTrainingId")
                         .HasColumnType("int");
@@ -383,7 +418,8 @@ namespace THA_Entitys.Migrations
                     b.Property<string>("University")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("university");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -392,7 +428,7 @@ namespace THA_Entitys.Migrations
 
                     b.HasIndex("TypeOfTrainingId");
 
-                    b.ToTable("Trainees");
+                    b.ToTable("Trainee", (string)null);
                 });
 
             modelBuilder.Entity("THA_Entitys.Models.TypeOfTraining", b =>
@@ -404,7 +440,8 @@ namespace THA_Entitys.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime")
+                        .HasColumnName("createdOn");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -413,7 +450,7 @@ namespace THA_Entitys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeOfTrainings");
+                    b.ToTable("TypeOfTraining", (string)null);
                 });
 
             modelBuilder.Entity("UserRole", b =>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using static THA_Entitys.Models.ApplicationUser;
 
 namespace THA_Entitys.Models
@@ -12,7 +9,7 @@ namespace THA_Entitys.Models
         {
 
         }
-        public AlumniadbContext(DbContextOptions<AlumniadbContext> options)
+        public AlumniadbContext(DbContextOptions options)
             : base(options)
         {
         }
@@ -29,29 +26,29 @@ namespace THA_Entitys.Models
         public virtual DbSet<TypeOfTraining> TypeOfTrainings { get; set; } = null!;
         public virtual DbSet<Address> Address { get; set; } = null!;
 
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=TAH-LAP-JOR289;Database=Alumniadb1;Trusted_Connection=True;");
-            }
-        }
+//       Refc
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//                optionsBuilder.UseSqlServer("Server=TAH-LAP-JOR289;Database=Alumniadb1;Trusted_Connection=True;");
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Address>(entity =>
             {
-                entity.ToTable("Address");
+                //entity.ToTable("Address");
 
-                entity.Property(e => e.AddressDetails)
-                    .HasMaxLength(256)
-                    .HasColumnName("addressDetails");
+                //entity.Property(e => e.AddressDetails)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("addressDetails");
 
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("createdOn");
+                //entity.Property(e => e.CreatedOn)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("createdOn");
 
                 entity.HasOne(d => d.User)
                     .WithOne(p => p.address)
@@ -61,22 +58,23 @@ namespace THA_Entitys.Models
 
             modelBuilder.Entity<ApplicationUser>(entity =>
             {
-                entity.ToTable("ApplicationUser");
+                //entity.ToTable("ApplicationUser");
 
-                entity.Property(e => e.CreatedByUserId).HasColumnName("createdByUserId");
+                //entity.Property(e => e.CreatedByUserId)
+                //.HasColumnName("createdByUserId");
 
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("createdOn");
+                //entity.Property(e => e.CreatedOn)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("createdOn");
 
-                entity.Property(e => e.Email).HasMaxLength(256);
+                //entity.Property(e => e.Email).HasMaxLength(256);
 
                 entity.Property(e => e.state)
                          .HasConversion(
                          v => v.ToString(),
                          v => (ApplicationUser.Status)(Status)Enum.Parse(typeof(Status), v));
 
-                entity.Property(e => e.UserName).HasMaxLength(256);
+                //entity.Property(e => e.UserName).HasMaxLength(256);
 
                 entity.HasMany(d => d.Roles)
                     .WithMany(p => p.Users)
@@ -94,36 +92,36 @@ namespace THA_Entitys.Models
 
             modelBuilder.Entity<CompanyRequest>(entity =>
             {
-                entity.ToTable("CompaniesRequestForTraining");
+                //entity.ToTable("CompaniesRequestForTraining");
 
-                entity.Property(e => e.Capacity).HasColumnName("capacity");
+                //entity.Property(e => e.Capacity).HasColumnName("capacity");
 
-                entity.Property(e => e.CreatedByUserId).HasColumnName("createdByUserId");
+                //entity.Property(e => e.CreatedByUserId).HasColumnName("createdByUserId");
 
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("createdOn");
+                //entity.Property(e => e.CreatedOn)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("createdOn");
 
-                entity.Property(e => e.Note)
-                    .HasMaxLength(256)
-                    .HasColumnName("note");
+                //entity.Property(e => e.Note)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("note");
 
                 entity.Property(e => e.state)
                              .HasConversion(
                               v => v.ToString(),
                               v => (CompanyRequest.Status)(Status)Enum.Parse(typeof(Status), v));
 
-                entity.Property(e => e.TrainingPathName)
-                    .HasMaxLength(256)
-                    .HasColumnName("trainingPathName");
+                //entity.Property(e => e.TrainingPathName)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("trainingPathName");
 
-                entity.Property(e => e.TrainingPeriodFrom)
-                    .HasColumnType("date")
-                    .HasColumnName("trainingPeriodFrom");
+                //entity.Property(e => e.TrainingPeriodFrom)
+                //    .HasColumnType("date")
+                //    .HasColumnName("trainingPeriodFrom");
 
-                entity.Property(e => e.TrainingPeriodTo)
-                    .HasColumnType("date")
-                    .HasColumnName("trainingPeriodTo");
+                //entity.Property(e => e.TrainingPeriodTo)
+                //    .HasColumnType("date")
+                //    .HasColumnName("trainingPeriodTo");
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.CompanyRequests)
@@ -133,35 +131,35 @@ namespace THA_Entitys.Models
 
             modelBuilder.Entity<Company>(entity =>
             {
-                entity.ToTable("Company");
+                //entity.ToTable("Company");
 
-                entity.Property(e => e.CompanyEmail)
-                    .HasMaxLength(256)
-                    .HasColumnName("companyEmail");
+                //entity.Property(e => e.CompanyEmail)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("companyEmail");
 
-                entity.Property(e => e.CompanyLicense)
-                    .HasMaxLength(256)
-                    .HasColumnName("companyLicense");
+                //entity.Property(e => e.CompanyLicense)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("companyLicense");
 
-                entity.Property(e => e.CompanyName)
-                    .HasMaxLength(256)
-                    .HasColumnName("companyName");
+                //entity.Property(e => e.CompanyName)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("companyName");
 
-                entity.Property(e => e.CompanyWebsite)
-                    .HasMaxLength(256)
-                    .HasColumnName("companyWebsite");
+                //entity.Property(e => e.CompanyWebsite)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("companyWebsite");
 
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("createdOn");
+                //entity.Property(e => e.CreatedOn)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("createdOn");
 
-                entity.Property(e => e.Payment)
-                    .HasMaxLength(256)
-                    .HasColumnName("payment");
+                //entity.Property(e => e.Payment)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("payment");
 
-                entity.Property(e => e.Role)
-                    .HasMaxLength(256)
-                    .HasColumnName("role");
+                //entity.Property(e => e.Role)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("role");
 
                 entity.HasOne(d => d.User)
                     .WithOne(p => p.company)
@@ -171,28 +169,28 @@ namespace THA_Entitys.Models
 
             modelBuilder.Entity<Contact>(entity =>
             {
-                entity.ToTable("Contact");
+                //entity.ToTable("Contact");
 
-                entity.Property(e => e.Email).HasMaxLength(256);
+                //entity.Property(e => e.Email).HasMaxLength(256);
 
-                entity.Property(e => e.Message).HasMaxLength(256);
+                //entity.Property(e => e.Message).HasMaxLength(256);
 
-                entity.Property(e => e.Name).HasMaxLength(256);
+                //entity.Property(e => e.Name).HasMaxLength(256);
             });
 
             modelBuilder.Entity<Notification>(entity =>
             {
-                entity.ToTable("Notification");
+                //entity.ToTable("Notification");
 
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("createdOn");
+                //entity.Property(e => e.CreatedOn)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("createdOn");
 
-                entity.Property(e => e.IsRead).HasColumnName("isRead");
+                //entity.Property(e => e.IsRead).HasColumnName("isRead");
 
-                entity.Property(e => e.Subject)
-                    .HasMaxLength(256)
-                    .HasColumnName("subject");
+                //entity.Property(e => e.Subject)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("subject");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Notifications)
@@ -202,15 +200,15 @@ namespace THA_Entitys.Models
 
             modelBuilder.Entity<Project>(entity =>
             {
-                entity.ToTable("Project");
+                //entity.ToTable("Project");
 
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("createdOn");
+                //entity.Property(e => e.CreatedOn)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("createdOn");
 
-                entity.Property(e => e.ProjectName)
-                    .HasMaxLength(256)
-                    .HasColumnName("projectName");
+                //entity.Property(e => e.ProjectName)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("projectName");
 
                 entity.HasOne(d => d.Trainee)
                     .WithMany(p => p.Projects)
@@ -220,70 +218,70 @@ namespace THA_Entitys.Models
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.Property(e => e.RoleName)
-                    .HasMaxLength(256)
-                    .HasColumnName("roleName");
+                //entity.Property(e => e.RoleName)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("roleName");
             });
 
             modelBuilder.Entity<Trainee>(entity =>
             {
-                entity.ToTable("Trainee");
+                //entity.ToTable("Trainee");
 
-                entity.Property(e => e.BirthDate)
-                    .HasColumnType("date")
-                    .HasColumnName("birthDate");
+                //entity.Property(e => e.BirthDate)
+                //    .HasColumnType("date")
+                //    .HasColumnName("birthDate");
 
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("createdOn");
+                //entity.Property(e => e.CreatedOn)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("createdOn");
 
-                entity.Property(e => e.CvUrl)
-                    .HasMaxLength(256)
-                    .HasColumnName("cvUrl");
+                //entity.Property(e => e.CvUrl)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("cvUrl");
 
-                entity.Property(e => e.DateOfGraduation)
-                    .HasColumnType("date")
-                    .HasColumnName("dateOfGraduation");
+                //entity.Property(e => e.DateOfGraduation)
+                //    .HasColumnType("date")
+                //    .HasColumnName("dateOfGraduation");
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(256)
-                    .HasColumnName("email");
+                //entity.Property(e => e.Email)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("email");
 
-                entity.Property(e => e.FullName)
-                    .HasMaxLength(256)
-                    .HasColumnName("fullName");
+                //entity.Property(e => e.FullName)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("fullName");
 
-                entity.Property(e => e.GenderIsMale).HasColumnName("genderIsMale");
+                //entity.Property(e => e.GenderIsMale).HasColumnName("genderIsMale");
 
-                entity.Property(e => e.Gpa)
-                    .HasColumnType("decimal(6, 3)")
-                    .HasColumnName("GPA");
+                //entity.Property(e => e.Gpa)
+                //    .HasColumnType("decimal(6, 3)")
+                //    .HasColumnName("GPA");
 
-                entity.Property(e => e.ImageUrl).HasMaxLength(256);
+                //entity.Property(e => e.ImageUrl).HasMaxLength(256);
 
-                entity.Property(e => e.JobTitle)
-                    .HasMaxLength(256)
-                    .HasColumnName("jobTitle");
+                //entity.Property(e => e.JobTitle)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("jobTitle");
 
-                entity.Property(e => e.LinkedinUrl)
-                    .HasMaxLength(256)
-                    .HasColumnName("linkedinUrl");
+                //entity.Property(e => e.LinkedinUrl)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("linkedinUrl");
 
-                entity.Property(e => e.Major)
-                    .HasMaxLength(256)
-                    .HasColumnName("major");
+                //entity.Property(e => e.Major)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("major");
 
-                entity.Property(e => e.Nationality)
-                    .HasMaxLength(256)
-                    .HasColumnName("nationality");
+                //entity.Property(e => e.Nationality)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("nationality");
 
-                entity.Property(e => e.PhoneNumber)
-                    .HasMaxLength(256)
-                    .HasColumnName("phoneNumber");
+                //entity.Property(e => e.PhoneNumber)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("phoneNumber");
 
-                entity.Property(e => e.University)
-                    .HasMaxLength(256)
-                    .HasColumnName("university");
+                //entity.Property(e => e.University)
+                //    .HasMaxLength(256)
+                //    .HasColumnName("university");
 
                 entity.HasOne(d => d.TypeOfTraining)
                     .WithMany(p => p.Trainees)
@@ -298,13 +296,13 @@ namespace THA_Entitys.Models
 
             modelBuilder.Entity<TypeOfTraining>(entity =>
             {
-                entity.ToTable("TypeOfTraining");
+                //entity.ToTable("TypeOfTraining");
 
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("createdOn");
+                //entity.Property(e => e.CreatedOn)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("createdOn");
 
-                entity.Property(e => e.Type).HasMaxLength(256);
+                //entity.Property(e => e.Type).HasMaxLength(256);
             });
 
             OnModelCreatingPartial(modelBuilder);

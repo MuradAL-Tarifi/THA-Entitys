@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace THA_Entitys.Models
 {
@@ -9,8 +10,8 @@ namespace THA_Entitys.Models
         {
             Users = new HashSet<ApplicationUser>();
         }
-
-        public string RoleName { get; set; } = null!;
+        [MaxLength(256)]
+        public string RoleName { get; set; } 
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
     }

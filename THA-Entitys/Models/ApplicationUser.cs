@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace THA_Entitys.Models
 {
@@ -12,9 +13,12 @@ namespace THA_Entitys.Models
         }
 
         public int? CreatedByUserId { get; set; }
-        public string UserName { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string PasswordHash { get; set; } = null!;
+        [MaxLength(256)]
+        public string UserName { get; set; }
+        [MaxLength(256)]
+        public string Email { get; set; }
+        [MaxLength(256)]
+        public string PasswordHash { get; set; } 
         public DateTimeOffset? LockoutEnd { get; set; }
         public bool? LockoutEnabled { get; set; }
         public Status state { get; set; }
