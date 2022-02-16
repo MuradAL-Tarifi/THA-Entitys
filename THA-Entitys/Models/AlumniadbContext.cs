@@ -14,17 +14,17 @@ namespace THA_Entitys.Models
         {
         }
 
-        public virtual DbSet<Address> Addresses { get; set; } = null!;
-        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
-        public virtual DbSet<CompanyRequest> CompanyRequests { get; set; } = null!;
-        public virtual DbSet<Company> Companies { get; set; } = null!;
-        public virtual DbSet<Contact> Contacts { get; set; } = null!;
-        public virtual DbSet<Notification> Notifications { get; set; } = null!;
-        public virtual DbSet<Project> Projects { get; set; } = null!;
-        public virtual DbSet<Role> Roles { get; set; } = null!;
-        public virtual DbSet<Trainee> Trainees { get; set; } = null!;
-        public virtual DbSet<TypeOfTraining> TypeOfTrainings { get; set; } = null!;
-        public virtual DbSet<Address> Address { get; set; } = null!;
+        public virtual DbSet<Address> Addresses { get; set; } 
+        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; } 
+        public virtual DbSet<CompanyRequest> CompanyRequests { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; } 
+        public virtual DbSet<Notification> Notifications { get; set; } 
+        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Trainee> Trainees { get; set; } 
+        public virtual DbSet<TypeOfTraining> TypeOfTrainings { get; set; } 
+        public virtual DbSet<Address> Address { get; set; } 
 
 //       Refc
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
