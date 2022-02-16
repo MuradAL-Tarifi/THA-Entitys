@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using THA_Entitys.Models;
+using THA_Entitys.Refactor;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.DatabaseSettings(builder.Configuration);
 
 builder.Services.AddDbContext<AlumniadbContext>(options =>
 {
@@ -14,7 +17,6 @@ builder.Services.AddDbContext<AlumniadbContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AlumniadbContext>()
     .AddDefaultTokenProviders();
-
 var app = builder.Build();
 
 
